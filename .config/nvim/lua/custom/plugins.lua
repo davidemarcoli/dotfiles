@@ -15,9 +15,36 @@ local plugins = {
         "html-lsp",
         "angular-language-server",
         "rust-analyzer",
-        --"java-language-server"
+        "java-language-server"
       }
     }
-  }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        -- defaults 
+        "vim",
+        "lua",
+
+        -- web dev 
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        -- "vue", "svelte",
+
+        -- my languages
+        "java",
+
+       -- low level
+        "c",
+        "rust",
+        "zig"
+      },
+    },
+  },
 }
 return plugins

@@ -20,12 +20,21 @@ lspconfig.html.setup({
   capabilities = capabilities
 })
 
-local angular_cmd = {vim.fn.stdpath("data") .. "/mason/bin/ngserver", "--stdio", "--tsProbeLocations", "" , "--ngProbeLocations", ""}
+local angular_cmd = { vim.fn.stdpath("data") .. "/mason/bin/ngserver", "--stdio", "--tsProbeLocations", "",
+  "--ngProbeLocations", "" }
 -- print(angular_cmd)
 -- /mason/bin/ngserver
 
 lspconfig.angularls.setup({
   cmd = angular_cmd,
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+local java_cmd = {vim.fn.stdpath("data") .. "/mason/packages/java-language-server/dist/lang_server_linux.sh"}
+
+lspconfig.java_language_server.setup({
+  cmd = java_cmd,
   on_attach = on_attach,
   capabilities = capabilities
 })

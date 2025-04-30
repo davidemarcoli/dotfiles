@@ -4,3 +4,5 @@
 	signingkey = /home/davidemarcoli/.ssh/id_github
 [gpg]
 	format = ssh
+[push]
+	autoSetupRemote = true

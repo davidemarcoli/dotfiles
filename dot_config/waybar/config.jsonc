@@ -10,7 +10,7 @@
         "spacing": 10
     },
     "clock": {
-        "tooltip-format": "{:%d.%m.%Y | %H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%d.%m.%Y}",
         "format": "{:%d.%m.%Y %H:%M}"
     },
@@ -18,7 +18,7 @@
         "format": "　{usage}%"
     },
     "memory": {
-        "format": "　{}%"
+        "format": "　{}%"
     },
     "backlight": {
         //"device": "intel_backlight",
@@ -46,7 +46,7 @@
         "scroll-step": 5,
         "format": "　{volume}%",
         "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
+        "format-muted": "",
         "format-icons": {
             "headphones": "",
             "handsfree": "",
@@ -58,7 +58,6 @@
         },
         "on-click": "pavucontrol",
         "reverse-scrolling": true
-
     },
     "power-profiles-daemon": {
         "format": "{icon}   {profile}",

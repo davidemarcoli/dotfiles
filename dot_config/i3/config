@@ -192,4 +192,4 @@ bar {
 bindsym $mod+space exec "rofi -show drun"
 
 exec_always "setxkbmap -layout ch -variant de"
-exec_always --no-startup-id "feh --bg-scale ~/Downloads/got-dragon.jpg"
+exec_always --no-startup-id "feh --bg-scale ~/Documents/got-dragon.jpg"

@@ -1,3 +1,6 @@
 [user]
 	email = davide@marcoli.ch
 	name = davidemarcoli
+	signingkey = /home/davidemarcoli/.ssh/id_github
+[gpg]
+	format = ssh

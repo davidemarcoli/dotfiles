@@ -6,7 +6,7 @@ selected=$(echo -e $entries | wofi --dmenu --insensitive --width 200 --height 25
 
 case $selected in
     lock)
-        swaylock --color 000000 -f ;;
+        hyprlock ;;
     logout)
         hyprctl dispatch exit ;;
     suspend)

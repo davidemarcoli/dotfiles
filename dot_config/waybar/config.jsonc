@@ -4,7 +4,7 @@
     "height": 30, // Height of the bar
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["power-profiles-daemon"],
-    "modules-right": ["tray", "cpu", "memory", "backlight", "network", "pulseaudio", "battery", "clock"],
+    "modules-right": ["tray", "cpu", "memory", "backlight", "network", "pulseaudio", "battery", "clock", "custom/powermenu"],
     "tray": {
         // "icon-size": 21,
         "spacing": 10
@@ -69,5 +69,10 @@
             "balanced": "",
             "power-saver": ""
         }
+    },
+    "custom/powermenu": {
+        "format": "",
+        "on-click": "~/.config/hypr/scripts/powermenu.sh",
+        "tooltip": false
     }
 }

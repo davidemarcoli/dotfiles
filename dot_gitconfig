@@ -6,3 +6,6 @@
 	format = ssh
 [push]
 	autoSetupRemote = true
+
+[includeIf "gitdir:~/projects/zhaw"]
+    path = ~/projects/zhaw/.gitconfig

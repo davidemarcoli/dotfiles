@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This script automatically disconnects WireGuard when connecting to specific WiFi networks
+
+INTERFACE="$1"
+ACTION="$2"
+
+# Your home network SSID
+HOME_SSID="{{ .homeSSID }}"
+
+# Only proceed if we're dealing with a WiFi connection coming up
+if [ "$ACTION" = "up" ] && [ "$(nmcli -t -f GENERAL.TYPE device show "$INTERFACE" | cut -d: -f2)" = "wifi" ]; then
+    # Get the SSID of the connected network
+    CURRENT_SSID=$(nmcli -t -f GENERAL.CONNECTION device show "$INTERFACE" | cut -d: -f2)
+    
+    if [ "$CURRENT_SSID" = "$HOME_SSID" ]; then
+        # Get active WireGuard connections
+        ACTIVE_WG=$(nmcli -t -f TYPE,NAME,ACTIVE connection show | grep "wireguard" | grep ":yes" | cut -d: -f2)
+        
+        if [ -n "$ACTIVE_WG" ]; then
+            # Disconnect all active WireGuard connections
+            for connection in $ACTIVE_WG; do
+                logger "Auto-disconnecting WireGuard connection: $connection (connected to home network)"
+                nmcli connection down "$connection"
+            done
+        fi
+    fi
+fi

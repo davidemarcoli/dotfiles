@@ -1,0 +1,43 @@
+#!/bin/bash
+# Installs system files that need root permissions
+
+set -e  # Exit on error
+
+CHEZMOI_DIR="{{ .chezmoi.sourceDir }}"
+SYSTEM_FILES_DIR="$CHEZMOI_DIR/system"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${YELLOW}Installing system files...${NC}"
+
+# Install NetworkManager dispatcher scripts
+if [ -d "$SYSTEM_FILES_DIR/NetworkManager/dispatcher.d" ]; then
+    echo -e "${GREEN}Installing NetworkManager dispatcher scripts...${NC}"
+    
+    for file in "$SYSTEM_FILES_DIR/NetworkManager/dispatcher.d"/*.tmpl; do
+        if [ -f "$file" ]; then
+            # Remove .tmpl extension for target filename
+            filename=$(basename "$file" .tmpl)
+            target="/etc/NetworkManager/dispatcher.d/$filename"
+            
+            echo -n "Installing $filename... "
+            
+            # Process template using chezmoi
+            temp_file=$(mktemp)
+            chezmoi execute-template < "$file" > "$temp_file"
+            
+            # Install with sudo
+            sudo cp "$temp_file" "$target"
+            sudo chmod +x "$target"
+            rm "$temp_file"
+            
+            echo -e "${GREEN}done${NC}"
+        fi
+    done
+fi
+
+echo -e "${GREEN}System files installation completed!${NC}"

@@ -143,3 +143,25 @@ window#waybar.hidden {
     background: #64727D;
     color: #ffffff;   
 }
+
+#custom-wireguard {
+    padding: 0 10px;
+    margin: 0 5px;
+}
+
+#custom-wireguard.connected {
+    color: #26A65B;
+}
+
+#custom-wireguard.connecting {
+    color: #f1c40f;
+    animation: blink 1s linear infinite;
+}
+
+#custom-wireguard.disconnected {
+    color: #95a5a6;
+}
+
+@keyframes blink {
+    50% { opacity: 0.5; }
+}

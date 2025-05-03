@@ -9,3 +9,4 @@ if [ "$(cat /sys/class/power_supply/AC/online)" -eq "0" ]; then
 
     # Then suspend the system
     systemctl suspend
+fi

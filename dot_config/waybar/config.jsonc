@@ -4,7 +4,7 @@
     "height": 30, // Height of the bar
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["power-profiles-daemon"],
-    "modules-right": ["tray", "cpu", "memory", "backlight", "network", "pulseaudio", "battery", "clock", "custom/powermenu"],
+    "modules-right": ["tray", "cpu", "memory", "backlight", "custom/wireguard", "network", "pulseaudio", "battery", "clock", "custom/powermenu"],
     "tray": {
         // "icon-size": 21,
         "spacing": 10
@@ -35,6 +35,15 @@
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         //"format-icons": ["", "", "", "", ""]
+    },
+    "custom/wireguard": {
+        "interval": 2,
+        "exec": "~/.config/hypr/scripts/wireguard-status.sh",
+        "return-type": "json",
+        "on-click": "~/.config/hypr/scripts/wireguard-toggle.sh",
+        "on-click-right": "~/.config/hypr/scripts/wireguard-menu.sh",
+        "format": "{}",
+        "tooltip": true
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface

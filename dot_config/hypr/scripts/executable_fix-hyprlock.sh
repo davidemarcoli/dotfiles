@@ -39,9 +39,9 @@ find_hyprland_sessions() {
     local sockets=()
     
     # Look for Hyprland socket files
-    for socket in /tmp/hypr/*/.socket.sock; do
+    for socket in /run/user/*/hypr/*/.socket.sock; do
         if [[ -S "$socket" ]]; then
-            instance=$(echo "$socket" | sed -E 's|/tmp/hypr/([^/]+)/.socket.sock|\1|')
+            instance=$(echo "$socket" | sed -E 's|/run/user/([^/]+)/hypr/([^/]+)/.socket.sock|\2|')
             instances+=("$instance")
             sockets+=("$socket")
         fi
@@ -79,17 +79,19 @@ recover_lock_screen() {
     echo -e "${BLUE}Step 2:${NC} Killing any running hyprlock processes..."
     
     # Try graceful kill first
-    if pkill hyprlock; then
-        echo -e "  ${GREEN}✓${NC} Successfully terminated hyprlock processes"
-    else
-        echo -e "  ${YELLOW}!${NC} No active hyprlock processes found, trying force kill..."
-        
-        # Force kill if needed
-        if pkill -9 hyprlock; then
-            echo -e "  ${GREEN}✓${NC} Successfully force-terminated hyprlock processes"
+    if pgrep -x "hyprlock" > /dev/null; then
+        if pkill -x "hyprlock"; then
+            echo -e "  ${GREEN}✓${NC} Successfully terminated hyprlock processes"
         else
-            echo -e "  ${YELLOW}!${NC} No hyprlock processes found to kill"
+            echo -e "  ${YELLOW}!${NC} Failed to terminate hyprlock, trying force kill..."
+            if pkill -9 -x "hyprlock"; then
+                echo -e "  ${GREEN}✓${NC} Successfully force-terminated hyprlock processes"
+            else
+                echo -e "  ${RED}✗${NC} Failed to force-terminate hyprlock processes"
+            fi
         fi
+    else
+        echo -e "  ${YELLOW}!${NC} No hyprlock processes found to kill"
     fi
     
     echo

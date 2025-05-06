@@ -40,4 +40,33 @@ if [ -d "$SYSTEM_FILES_DIR/NetworkManager/dispatcher.d" ]; then
     done
 fi
 
+# Install NetworkManager connections
+if [ -d "$SYSTEM_FILES_DIR/NetworkManager/connections" ]; then
+    echo -e "${GREEN}Installing NetworkManager connections...${NC}"
+    
+    for file in "$SYSTEM_FILES_DIR/NetworkManager/connections"/*.tmpl; do
+        if [ -f "$file" ]; then
+            # Remove .tmpl extension for target filename
+            filename=$(basename "$file" .tmpl)
+            target="/etc/NetworkManager/system-connections/$filename"
+            
+            echo -n "Installing $filename... "
+            
+            # Process template using chezmoi
+            temp_file=$(mktemp)
+            chezmoi execute-template < "$file" > "$temp_file"
+            
+            # Install with sudo and set permissions
+            sudo cp "$temp_file" "$target"
+            sudo chmod 600 "$target"
+            rm "$temp_file"
+            
+            echo -e "${GREEN}done${NC}"
+        fi
+    done
+    
+    # Reload connections
+    sudo systemctl restart NetworkManager
+fi
+
 echo -e "${GREEN}System files installation completed!${NC}"

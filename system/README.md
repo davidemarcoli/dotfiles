@@ -25,4 +25,8 @@ Some files use templating. Configure values in `~/.config/chezmoi/chezmoi.toml`:
 ```toml
 [data]
 homeSSID = "YOUR_HOME_NETWORK_SSID"
+
+[data.zhaw] 
+identity = "MyFancyIdentity",
+password = "YourSecurePassword"  # Replace with your actual password
 ```

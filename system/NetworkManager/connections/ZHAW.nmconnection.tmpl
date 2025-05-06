@@ -1,0 +1,29 @@
+[connection]
+id=ZHAW
+uuid=1cc826a2-1a8c-4a3f-814c-43875950968a
+type=wifi
+autoconnect-priority=20
+interface-name=wlan0
+timestamp=1746431208
+
+[wifi]
+mode=infrastructure
+ssid=ZHAW
+
+[wifi-security]
+key-mgmt=wpa-eap
+
+[802-1x]
+eap=peap;
+identity={{ .zhaw.identity }}
+password={{ .zhaw.password }}
+phase2-auth=mschapv2
+
+[ipv4]
+method=auto
+
+[ipv6]
+addr-gen-mode=default
+method=auto
+
+[proxy]

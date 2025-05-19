@@ -7,5 +7,5 @@
 [push]
 	autoSetupRemote = true
 
-[includeIf "gitdir:~/projects/zhaw"]
+[includeIf "gitdir:~/projects/zhaw/"]
     path = ~/projects/zhaw/.gitconfig

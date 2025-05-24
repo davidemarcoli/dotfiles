@@ -2,7 +2,7 @@
     "layer": "top", // Waybar at top layer
     "margin": "10 10 0 10", // Margin for the bar
     "height": 30, // Height of the bar
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["hyprland/workspaces", "custom/music"],
     "modules-center": ["power-profiles-daemon"],
     "modules-right": ["tray", "cpu", "memory", "backlight", "custom/wireguard", "network", "pulseaudio", "battery", "clock", "custom/powermenu"],
     "tray": {
@@ -35,6 +35,19 @@
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         //"format-icons": ["", "", "", "", ""]
+    },
+    "custom/music": {
+        "interval": 2,
+        "exec": "~/.config/hypr/scripts/ncspot-status.sh",
+        "return-type": "json",
+        "on-click": "~/.config/hypr/scripts/ncspot-control.sh playpause",
+        // "on-click-middle": "~/.config/hypr/scripts/ncspot-control.sh like",
+        "on-click-right": "~/.config/hypr/scripts/ncspot-control.sh open",
+        // "on-scroll-up": "~/.config/hypr/scripts/ncspot-control.sh next",
+        // "on-scroll-down": "~/.config/hypr/scripts/ncspot-control.sh previous",
+        "format": "{}",
+        "tooltip": true,
+        "max-length": 60
     },
     "custom/wireguard": {
         "interval": 2,
@@ -69,7 +82,7 @@
         "reverse-scrolling": true
     },
     "power-profiles-daemon": {
-        "format": "{icon}   {profile}",
+        "format": "{icon} {profile}",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
